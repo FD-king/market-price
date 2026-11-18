@@ -1,13 +1,15 @@
 import { Suspense } from "react";
 import HeroSection from "./components/HeroSection";
+import MainProductSection from "./components/MainProductSection";
 
 const HomePage = () => {
   return (
-    <div>
+    <main>
       <Suspense fallback={"loading..."}>
         <HeroSection />
+        <MainProductSection />
       </Suspense>
-    </div>
+    </main>
   );
 };
 

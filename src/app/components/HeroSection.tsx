@@ -43,7 +43,7 @@ const HeroSection = async () => {
 
         {/* CTA Button */}
         <Link
-          href="#all-products" // this is for the hook to home page all products.
+          href="#all-products" // this is for the hook to home page all products
           className="row-start-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#078B43] px-4 py-3 text-sm font-bold text-white shadow-lg shadow-green-900/20 transition-all hover:bg-[#067638] sm:col-start-1 sm:row-start-4 sm:w-fit sm:rounded-md sm:px-5 sm:py-2.5"
         >
           সব পণ্য দেখুন
