@@ -1,4 +1,5 @@
 import type IProduct from "@/types/AllProductsType";
+import Link from "next/link";
 
 const ItemCard = ({ item }: { item: IProduct }) => {
   const unit =
@@ -13,7 +14,10 @@ const ItemCard = ({ item }: { item: IProduct }) => {
             : item.unit;
 
   return (
-    <div className="flex h-full w-full flex-col rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm transition-all hover:border-[#078B43]/30 hover:shadow-md">
+    <Link
+      href={`/products/${item.id}`}
+      className="flex h-full w-full flex-col rounded-2xl border border-[#E5E7EB] bg-white p-3 shadow-sm transition-all hover:border-[#078B43]/30 hover:shadow-md"
+    >
       {/* Product Information */}
       <div className="flex min-h-[42px] items-start gap-2.5">
         {/* Product Emoji */}
@@ -69,7 +73,7 @@ const ItemCard = ({ item }: { item: IProduct }) => {
           <span>{item.change.pct.toLocaleString("bn-BD")}%</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

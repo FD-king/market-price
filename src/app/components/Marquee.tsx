@@ -1,4 +1,5 @@
 import IProduct from "@/types/AllProductsType";
+import Link from "next/link";
 import MarqueeText from "react-marquee-text";
 
 const Marquee = async () => {
@@ -16,7 +17,8 @@ const Marquee = async () => {
     <div className="overflow-hidden bg-[#FCFDFB]">
       <MarqueeText duration={50}>
         {data.map((item) => (
-          <div
+          <Link
+            href={`/products/${item.id}`}
             key={item.id}
             className="flex shrink-0 items-center gap-2 border-r border-gray-200 px-5 py-2"
           >
@@ -50,7 +52,7 @@ const Marquee = async () => {
                   : "—"}{" "}
               {item.change.pct}%
             </span>
-          </div>
+          </Link>
         ))}
       </MarqueeText>
     </div>
