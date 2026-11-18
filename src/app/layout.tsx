@@ -3,6 +3,7 @@ import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import { Suspense } from "react";
+import Footer from "./components/Footer";
 
 const NotoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -19,7 +20,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${NotoSerifBengali.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#f0f5f0]">
         <div>
           <nav>
             <Suspense>
@@ -27,6 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </Suspense>
           </nav>
           <main>{children}</main>
+          <footer>
+            <Footer />
+          </footer>
         </div>
       </body>
     </html>
