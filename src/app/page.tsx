@@ -1,5 +1,14 @@
+import { Suspense } from "react";
+import HeroSection from "./components/HeroSection";
+
 const HomePage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Suspense fallback={"loading..."}>
+        <HeroSection />
+      </Suspense>
+    </div>
+  );
 };
 
 export default HomePage;
