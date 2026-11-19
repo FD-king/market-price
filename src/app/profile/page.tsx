@@ -1,6 +1,33 @@
+"use client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { IoReturnDownBack } from "react-icons/io5";
 
 const ProfilePage = () => {
+  const { data: session, error } = useSession();
+  const user = session?.user;
+
+  const handleProfileUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const newUserInfo = Object.fromEntries(formData.entries()) as {
+      name: string;
+    };
+
+    const { error } = await authClient.updateUser({
+      name: newUserInfo.name,
+    });
+
+    if (error) {
+      console.error("Profile update failed:", error);
+      return;
+    }
+  };
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+  };
   return (
     <main className="min-h-full bg-[#F0F5F0] px-4 py-12 sm:py-16">
       <div className="mx-auto w-full max-w-[490px]">
@@ -21,16 +48,17 @@ const ProfilePage = () => {
           <div className="flex min-w-0 items-center gap-3">
             {/* Avatar Placeholder */}
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#DCE9DF] text-base font-bold text-[#008C43]">
-              RA
+              {user?.name[0]}
+              {user?.name[1]}
             </div>
 
             <div className="min-w-0">
               <h2 className="truncate text-sm font-bold text-[#1D271F]">
-                Rezwan Ahmed
+                {user?.name}
               </h2>
 
               <p className="mt-0.5 truncate text-xs font-medium text-[#657168]">
-                rezwanahmed@gmail.com
+                {user?.email}
               </p>
             </div>
           </div>
@@ -38,6 +66,7 @@ const ProfilePage = () => {
           {/* Sign Out Button */}
           <button
             type="button"
+            onClick={() => handleSignOut()}
             className="flex shrink-0 items-center gap-1 rounded-md border border-red-400 px-2.5 py-2 text-[11px] font-semibold text-red-500 transition hover:bg-red-50"
           >
             <IoReturnDownBack className="text-sm" />
@@ -49,7 +78,7 @@ const ProfilePage = () => {
         <div className="rounded-xl border border-[#DCE6DD] bg-[#FAFCFA] p-4 sm:p-5">
           <h2 className="mb-6 text-sm font-bold text-[#1D271F]">তথ্য</h2>
 
-          <form className="space-y-3">
+          <form onSubmit={handleProfileUpdate} className="space-y-3">
             {/* Name */}
             <div>
               <label
@@ -64,7 +93,7 @@ const ProfilePage = () => {
                 name="name"
                 type="text"
                 placeholder="আপনার নাম লিখুন"
-                defaultValue="Rezwan Ahmed"
+                defaultValue={`${user?.name}`}
                 className="w-full rounded-lg border border-[#DCE6DD] bg-transparent px-3 py-2.5 text-sm font-medium text-[#1D271F] outline-none transition placeholder:text-[#89958B] focus:border-[#008C43] focus:ring-2 focus:ring-[#008C43]/10"
               />
             </div>
