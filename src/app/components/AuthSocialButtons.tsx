@@ -1,3 +1,4 @@
+"use client";
 import { signIn } from "@/lib/auth-client";
 import { Icon } from "@iconify/react";
 
