@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { IoPersonOutline, IoReturnDownBack } from "react-icons/io5";
-import { FaChevronUp } from "react-icons/fa6";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 interface ProfileDropDownProps {
   user: {
@@ -44,7 +44,7 @@ const ProfileDropDownInNavBar = ({ user }: ProfileDropDownProps) => {
           {user.name}
         </span>
 
-        <FaChevronUp />
+        {isOpen ? <FaChevronDown /> : <FaChevronUp />}
       </button>
 
       {/* Dropdown Content */}
