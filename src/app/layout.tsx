@@ -17,21 +17,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
-      className={`${NotoSerifBengali.className} h-full antialiased`}
+      lang="bn"
+      className={`${NotoSerifBengali.className} min-h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#f0f5f0]">
-        <div>
-          <nav>
-            <Suspense>
-              <NavBar />
-            </Suspense>
-          </nav>
-          <main>{children}</main>
-          <footer>
-            <Footer />
-          </footer>
-        </div>
+      <body className="min-h-screen flex flex-col bg-[#f0f5f0]">
+        {/* Navbar */}
+        <nav className="sticky top-0 z-50">
+          <Suspense>
+            <NavBar />
+          </Suspense>
+        </nav>
+
+        {/* Page Content */}
+        <main className="flex-1">{children}</main>
+
+        {/* Footer */}
+        <Footer />
       </body>
     </html>
   );
