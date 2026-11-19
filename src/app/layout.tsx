@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import { Suspense } from "react";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
+import { NavbarSkeleton } from "./components/skeletons/LoadingSkeletons";
 
 const NotoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -21,9 +23,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${NotoSerifBengali.className} min-h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#f0f5f0]">
+        <div>
+          <Toaster />
+        </div>
         {/* Navbar */}
         <nav className="sticky top-0 z-50">
-          <Suspense>
+          <Suspense fallback={<NavbarSkeleton />}>
             <NavBar />
           </Suspense>
         </nav>

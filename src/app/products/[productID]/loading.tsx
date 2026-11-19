@@ -1,7 +1,7 @@
-import React from "react";
+import { ProductsSkeleton } from "@/app/components/skeletons/LoadingSkeletons";
 
-const loading = () => {
-  return <div>loading...</div>;
+const Loading = () => {
+  return <ProductsSkeleton />;
 };
 
-export default loading;
+export default Loading;

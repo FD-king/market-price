@@ -3,6 +3,7 @@ import Link from "next/link";
 import AuthSocialButtons from "@/app/components/AuthSocialButtons";
 import React from "react";
 import { signUp } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const inputClass =
   "w-full rounded-lg border border-[#DCE6DD] bg-white px-3 py-2.5 text-sm font-medium text-[#1D271F] outline-none placeholder:text-[#89958B] placeholder:font-normal transition focus:border-[#1D6B40] focus:ring-2 focus:ring-[#1D6B40]/10";
@@ -10,19 +11,41 @@ const inputClass =
 const SignUpPage = () => {
   const handleOnSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as {
-      name: string;
-      email: string;
-      password: string;
-      confirmPassword: string;
-    };
-    //add toast here --->
 
-    const { data: resData, error } = await signUp.email({
-      ...data,
-    });
+    const formData = new FormData(e.currentTarget);
+
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const password = String(formData.get("password") ?? "");
+    const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+    // Validate passwords
+    if (password !== confirmPassword) {
+      toast.error("পাসওয়ার্ড দুটি মিলছে না!");
+      return;
+    }
+
+    try {
+      const { data, error } = await signUp.email({
+        name,
+        email,
+        password,
+        callbackURL: "/",
+      });
+
+      if (error) {
+        toast.error(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি!");
+        return;
+      }
+
+      toast.success(`স্বাগতম, ${data.user.name}!`, {
+        duration: 4000,
+      });
+    } catch {
+      toast.error("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন!");
+    }
   };
+
   return (
     <main className="flex flex-col items-center justify-start bg-[#F0F5F0] px-4 pt-7 pb-10">
       <div className="mb-4 text-center">

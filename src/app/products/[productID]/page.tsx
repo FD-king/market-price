@@ -1,5 +1,6 @@
 import Link from "next/link";
 import IProduct from "@/types/AllProductsType";
+import { notFound } from "next/navigation";
 
 // Convert English digits to Bengali digits
 const toBanglaDigits = (value: number | string): string => {
@@ -34,6 +35,9 @@ const ProductPage = async ({
   }
 
   const data: IProduct = await res.json();
+  if (!data) {
+    notFound();
+  }
 
   const diffFromYesterday = Number((data.today - data.yesterday).toFixed(2));
   const absDiffBn = formatPriceValue(Math.abs(diffFromYesterday));

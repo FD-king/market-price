@@ -1,5 +1,6 @@
 "use client";
 import { authClient, useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 import { IoReturnDownBack } from "react-icons/io5";
 
 const ProfilePage = () => {
@@ -27,6 +28,7 @@ const ProfilePage = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    toast.error("Signed Out");
   };
   return (
     <main className="min-h-full bg-[#F0F5F0] px-4 py-12 sm:py-16">

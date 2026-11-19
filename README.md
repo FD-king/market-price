@@ -9,4 +9,4 @@ techs:
 7. iconify
 8. better auth
 9. mongoDB
-10.
+10. react-hot-toast

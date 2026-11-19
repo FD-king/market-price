@@ -1,7 +1,7 @@
-import React from "react";
+import { ProfileSkeleton } from "../components/skeletons/LoadingSkeletons";
 
-const loading = () => {
-  return <div>loading...</div>;
+const Loading = () => {
+  return <ProfileSkeleton />;
 };
 
-export default loading;
+export default Loading;

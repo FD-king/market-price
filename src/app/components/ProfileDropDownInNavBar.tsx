@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { IoPersonOutline, IoReturnDownBack } from "react-icons/io5";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 interface ProfileDropDownProps {
   user: {
@@ -22,6 +23,7 @@ const ProfileDropDownInNavBar = ({ user }: ProfileDropDownProps) => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    toast.error("Signed Out");
   };
 
   return (

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import AuthSocialButtons from "@/app/components/AuthSocialButtons";
 import { signIn } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const inputClass =
   "w-full rounded-lg border border-[#DCE6DD] bg-white px-3 py-2.5 text-sm font-medium text-[#1D271F] outline-none placeholder:text-[#89958B] placeholder:font-normal transition focus:border-[#1D6B40] focus:ring-2 focus:ring-[#1D6B40]/10";
@@ -11,14 +12,30 @@ const SignInPage = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as {
-      email: string;
-      password: string;
-    };
-    const { data: resData, error } = await signIn.email({
-      ...data,
-    });
+
+    const email = String(formData.get("email") ?? "");
+    const password = String(formData.get("password") ?? "");
+
+    try {
+      const { data, error } = await signIn.email({
+        email,
+        password,
+        callbackURL: "/",
+      });
+
+      if (error) {
+        toast.error(error.message || "সাইন ইন ব্যর্থ হয়েছে!");
+        return;
+      }
+
+      toast.success(`স্বাগতম, ${data.user.name}!`, {
+        duration: 4000,
+      });
+    } catch {
+      toast.error("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন!");
+    }
   };
+
   return (
     <main className="flex flex-col items-center justify-start bg-[#F0F5F0] px-4 pt-7 pb-10">
       <div className="mb-4 text-center">

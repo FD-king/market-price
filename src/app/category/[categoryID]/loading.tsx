@@ -1,7 +1,7 @@
-import React from "react";
+import { CategorySkeleton } from "@/app/components/skeletons/LoadingSkeletons";
 
-const loading = () => {
-  return <div>loading...</div>;
+const Loading = () => {
+  return <CategorySkeleton />;
 };
 
-export default loading;
+export default Loading;

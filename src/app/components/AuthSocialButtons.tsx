@@ -5,12 +5,14 @@ const AuthSocialButtons = () => {
   const handleGoogleSignIn = async () => {
     const data = await signIn.social({
       provider: "google",
+      callbackURL: "/",
     });
   };
 
   const handleGithubSignIn = async () => {
     const data = await signIn.social({
       provider: "github",
+      callbackURL: "/",
     });
   };
   return (

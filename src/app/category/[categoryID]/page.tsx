@@ -1,6 +1,7 @@
 import CategoryProductList from "@/app/components/CategoryProductList";
 import IProduct from "@/types/AllProductsType";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const CategoryPage = async ({
   params,
@@ -18,6 +19,10 @@ const CategoryPage = async ({
   }
 
   const data: IProduct[] = await res.json();
+
+  if (!data) {
+    notFound();
+  }
 
   return (
     <main className="min-h-screen w-full bg-[#F0F5F0] px-4 py-8 sm:px-6 lg:px-8">
